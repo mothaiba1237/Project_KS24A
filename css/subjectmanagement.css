@@ -1,0 +1,365 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+}
+
+aside {
+    width: 220px;
+    background-color: #fff;
+    padding: 20px;
+    height: 100vh;
+    border-right: 1px solid #e5e7eb;
+}
+
+aside h2 {
+    font-size: 18px;
+    margin-bottom: -10px;
+}
+
+aside p {
+    font-size: 12px;
+    color: darkgray;
+    padding-left: 30px;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+aside ul li.active {
+    background-color: #e0f2fe;
+    color: #2563eb;
+    font-weight: bold;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+header.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 20px;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #fff;
+}
+
+.top-header .left i {
+    font-size: 18px;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.top-header .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.top-header .right i {
+    font-size: 18px;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.top-header .right img {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.content {
+    padding: 30px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    height: 40px;
+    padding: 8px 16px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2563eb;
+}
+
+select {
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+.filter {
+    text-align: end;
+    height: 40px;
+    margin-top: 0;
+    padding-bottom: 10px;
+}
+
+input[type="text"] {
+    height: 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    width: 250px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+th {
+    color: #6b7280;
+}
+
+
+thead {
+    background-color: #f4f4f4;
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    min-width: 140px;
+    justify-content: flex-start;
+}
+
+
+.badge .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.badge.active {
+    background-color: #d1fae5;
+    color: #047857;
+}
+
+.badge.active .dot {
+    background-color: #047857;
+}
+
+.badge.inactive {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.badge.inactive .dot {
+    background-color: #b91c1c;
+}
+
+.actions i {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pagination button {
+    padding: 6px 10px;
+    border: 1px solid #d1d5db;
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background-color: #3b82f6;
+    color: white;
+}
+
+td:nth-child(2),
+th:nth-child(2),
+td:nth-child(3),
+th:nth-child(3) {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    padding: 24px 32px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: start;
+    width: 400px;
+    height: auto;
+}
+
+.modal-actions {
+    height: auto;
+    display: flex;
+    justify-content: end;
+    gap: 16px;
+}
+
+hr {
+    width: auto;
+    margin-top: 50px;
+}
+
+.btn.danger {
+    background-color: #ef4444;
+    color: white;
+}
+
+.btn.danger:hover {
+    background-color: #dc2626;
+}
+
+.btn.cancel {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn.cancel:hover {
+    background-color: #d1d5db;
+}
+
+.delete-icon {
+    cursor: pointer;
+}
+
+.btn {
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn.cancel {
+    background-color: #ccc;
+    color: black;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    height: auto;
+    position: relative;
+}
+.modal-content .inputsubject{
+    width: 100%;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 6px;
+}
+.btn-addmd{
+    text-align: end;
+}

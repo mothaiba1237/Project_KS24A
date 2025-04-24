@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Quản lý môn học</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../css/subjectmanagement.css">
+</head>
+
+<body>
+    <div class="container">
+        <aside>
+            <h2><img src="../icons/📚.png" alt=""> Study Tracker</h2>
+            <p>Quản lý tiến độ học tập</p>
+            <ul>
+                <li><i class="fas fa-chart-line"></i> Thống kê</li>
+                <li class="active"><i class="fas fa-book-open"></i> Quản lý môn học</li>
+                <li><i class="fas fa-file-alt"></i> Quản lý bài học</li>
+            </ul>
+        </aside>
+
+        <div class="main">
+            <header class="top-header">
+                <div class="left">
+                    <i class="fas fa-th menu-icon"></i>
+                </div>
+                <div class="right">
+                    <i class="fas fa-bell"></i>
+                    <i class="fas fa-question-circle"></i>
+                    <i class="fas fa-cog"></i>
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="avatar" />
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="card">
+                    <h1>Môn học</h1>
+                    <div class="controls">
+                        <select>
+                            <option>Lọc theo trạng thái</option>
+                            <option>Đang hoạt động</option>
+                            <option>Ngừng hoạt động</option>
+                        </select>
+                        <button class="btn" onclick="openaddModal()">Thêm mới môn học</button>
+                    </div>
+                </div>
+
+                <div class="filter">
+                    <input type="text" placeholder="Tìm kiếm môn học theo tên..." />
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên môn học↓</th>
+                            <th class="status">Trạng thái</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lập trình C</td>
+                            <td><span class="badge active"><span class="dot"></span>Đang hoạt động</span></td>
+                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
+                        </tr>
+                        <tr>
+                            <td>Lập trình Frontend với ReactJS</td>
+                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
+                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
+                        </tr>
+                        <tr>
+                            <td>Lập trình Backend với Spring boot</td>
+                            <td><span class="badge active"><span class="dot"></span>Đang hoạt động</span></td>
+                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
+                        </tr>
+                        <tr>
+                            <td>Lập trình Frontend với VueJS</td>
+                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
+                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
+                        </tr>
+                        <tr>
+                            <td>Cấu trúc dữ liệu và giải thuật</td>
+                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
+                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
+                        </tr>
+                        <tr>
+                            <td>Phân tích và thiết kế hệ thống</td>
+                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
+                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
+                        </tr>
+                        <tr>
+                            <td>Toán cao cấp</td>
+                            <td><span class="badge active"><span class="dot"></span>Đang hoạt động</span></td>
+                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
+                        </tr>
+                        <tr>
+                            <td>Tiếng Anh chuyên ngành</td>
+                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
+                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination">
+                    <button>&lt;</button>
+                    <button>1</button>
+                    <button>2</button>
+                    <button class="active">3</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                    <button>7</button>
+                    <button>...</button>
+                    <button>20</button>
+                    <button>&gt;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="deleteModal" class="modal hidden">
+        <div class="modal-content">
+            <img src="../icons/alert-circle.png" alt="">
+            <h4>Xác nhận</h4>
+            <p>Bạn có chắc chắn muốn xóa môn học Lập trình cơ bản Frontend Fundamental khỏi hệ thống không?</p>
+            <hr>
+            <div class="modal-actions">
+                <button class="btn cancel" id="cancelBtn">Hủy</button>
+                <button class="btn danger">Xóa</button>
+            </div>
+        </div>
+    </div>
+    <div id="modaladd" class="modal hidden">
+        <div class="modal-content">
+          <button class="close-btn" onclick="closeaddModal()">×</button>
+          <h2>Thêm mới môn học</h2>
+          <p>Tên môn học</p>
+          <input type="text" class="inputsubject" id="namesubject"/>
+          <div id="error" class="error"></div>
+          <p>Trạng thái</p>
+            <input type="radio" checked><label>Đang hoạt động</label>
+          <input type="radio"><label>Ngừng hoạt động</label>
+          <div class="btn-addmd">
+            <button class="btn cancel" onclick="closeaddModal()">Hủy</button>
+            <button class="btn" onclick="add()">Thêm</button>
+          </div>
+        </div>
+      </div>
+      <div id="modalupdate" class="modal hidden">
+        <div class="modal-content">
+          <button class="close-btn" onclick="closeupdate()">×</button>
+          <h2>Cập nhật môn học</h2>
+          <p>Tên môn học</p>
+          <input type="text" class="inputsubject" id="namesubject"/>
+          <div id="error" class="error"></div>
+          <p>Trạng thái</p>
+            <input type="radio" checked><label>Đang hoạt động</label>
+          <input type="radio"><label>Ngừng hoạt động</label>
+          <div class="btn-addmd">
+            <button class="btn cancel" onclick="closeupdate()">Hủy</button>
+            <button class="btn" onclick="add()">Lưu</button>
+          </div>
+        </div>
+      </div>
+    <script src="../js/jubjectmanagement.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: white;
+}
+header {
+    justify-items: center;
+    display: flex;
+    align-items: center;
+    padding: 10px 140px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+input[type="text"]{
+    width: 55%;
+    padding: 10px ;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-left: 20px;
+    background-color: whitesmoke;
+}
+header input {
+    padding: 5px 10px;
+}
+header nav a {
+    margin-left: 60px;
+    text-decoration: none;
+    color: #999;
+}
+header .home{
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+}
+.nav-icons {
+    margin: 0 25px;
+}
+.nav-icons a{
+    margin-left: 25px;
+}
+.tabs {
+    display: flex;
+    justify-content: start;
+    margin: 20px;
+    margin-left: 150px;
+}
+.tabs p {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    color: #ccc;
+}
+.tabs .active{
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.course-card a{
+    text-decoration: none;
+    color: #333;
+    padding-left: 150px;
+}
+.courses {
+    max-width:100%;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 0 150px 40px;
+}
+.course-card {
+    width: 350px;
+    height: 400px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: solid whitesmoke 2px;
+}
+.course-card h3 {
+    margin-top: 0;
+    padding-left: 40px;
+}
+.course-card h4{
+    color: #ccc;
+    text-align: center;
+    padding-top: 125px;
+}
+
+.course-card p {
+    padding-top: 20px;
+}
+
+.course-card.empty {
+    color: #999;
+    text-align: center;
+}
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    height: 200px;
+    background: #000;
+    color: whitesmoke;
+    padding: 30px 20px;
+}
+footer a{
+    color: whitesmoke;
+}
+.social-icons{
+    padding-top: 100px;
+}
+.social-icons a{
+    margin-right: 50px;
+}
