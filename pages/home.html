@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trang học tập</title>
-    <link rel="stylesheet" href="../css/manager.css" />
+    <link rel="stylesheet" href="../css/home.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
@@ -15,14 +15,26 @@
         <input type="text" placeholder="🔍 Tìm kiếm" />
         <nav>
             <a class="home" href="#">Trang chủ</a>
-            <a href="#">Môn học</a>
+            <a href="#" onclick="subject()">Môn học</a>
             <a href="#">Bài học</a>
         </nav>
         <div class="nav-icons">
             <a href="#"><i class="far fa-heart"></i></a>
-            <a href="#"><i id="logoutBtn" class="far fa-user"></i></a>
-          </div>
+            <div class="user-container">
+                <a href="#" id="userProfile">
+                    <i class="far fa-user"></i>
+                </a>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <span id="user-name">Chào, User</span>
+                    <button id="logoutBtn">Đăng xuất</button>
+                </div>
+            </div>
+        </div>
+
+
+
     </header>
+
     <main>
         <div class="tabs">
             <p class="active">Tất cả môn học</p>
@@ -94,27 +106,28 @@
 
     <footer>
         <div>
-        <p>Chúng tôi cung cấp giải pháp học tập, giúp học sinh và <br>viên học tập tốt hơn và hiệu quả hơn.</p>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-tiktok"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-          </div>
+            <p>Chúng tôi cung cấp giải pháp học tập, giúp học sinh và <br>viên học tập tốt hơn và hiệu quả hơn.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
         </div>
-                <ul>
-                    <h4>Danh mục</h4>
-                    <a href="#">Môn học</a><br>
-                    <a href="#">Bài học</a><br>
-                    <a href="#">Ghi chú</a>
-                </ul>
-                <ul>
-                    <h4>Hỗ trợ khách hàng</h4>
-                    <a href="#">Tìm kiếm dịch vụ</a><br>
-                    <a href="#">Điều khoản sử dụng</a><br>
-                    <a href="#">Chính sách và điều khoản</a>
-                </ul>
+        <ul>
+            <h4>Danh mục</h4>
+            <a href="#">Môn học</a><br>
+            <a href="#">Bài học</a><br>
+            <a href="#">Ghi chú</a>
+        </ul>
+        <ul>
+            <h4>Hỗ trợ khách hàng</h4>
+            <a href="#">Tìm kiếm dịch vụ</a><br>
+            <a href="#">Điều khoản sử dụng</a><br>
+            <a href="#">Chính sách và điều khoản</a>
+        </ul>
     </footer>
 </body>
-<script src="../js/manager.js"></script>
+<script src="../js/home.js"></script>
+
 </html>

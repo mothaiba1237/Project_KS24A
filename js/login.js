@@ -13,6 +13,11 @@ if (loginForm) {
             alert('Mật khẩu không được để trống');
             return;
         }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Email phải đúng định dạng");
+            return;
+        }
         const users = JSON.parse(localStorage.getItem('users')) || [];
         const user = users.find(u => u.email === email && u.password === password);
 
@@ -22,6 +27,9 @@ if (loginForm) {
         }
         alert('Đăng nhập thành công!');
         localStorage.setItem('currentUser', JSON.stringify(user));
-        window.location.href = 'manager.html';
+        window.location.href = 'home.html';
     });
+}
+function register(){
+    window.location.href = 'register.html'
 }

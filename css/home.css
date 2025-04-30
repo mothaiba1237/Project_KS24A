@@ -114,3 +114,42 @@ footer a{
 .social-icons a{
     margin-right: 50px;
 }
+.user-container {
+    display: inline-block;
+    position: relative;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f8f8f8;
+    padding: 5px 10px;
+    border-radius: 20px;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+.user-info span {
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+}
+
+.user-info button {
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 15px;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.user-info button:hover {
+    background-color: #ff1a1a;
+}

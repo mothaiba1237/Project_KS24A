@@ -6,6 +6,7 @@ document.getElementById("register-form").addEventListener("submit", function (e)
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
     const agree = document.getElementById("agree").checked;
+
     if (!firstName || !lastName) {
         alert("Họ và tên không được để trống");
         return;
@@ -14,6 +15,7 @@ document.getElementById("register-form").addEventListener("submit", function (e)
         alert("Email không được để trống");
         return;
     }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert("Email phải đúng định dạng");
@@ -31,12 +33,13 @@ document.getElementById("register-form").addEventListener("submit", function (e)
         alert("Bạn cần đồng ý với điều khoản");
         return;
     }
+
     const user = {
         fullName: `${firstName} ${lastName}`,
         email: email,
         password: password
     };
-    // Kiểm tra trùng email
+
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const existed = users.find(u => u.email === email);
     if (existed) {
@@ -50,6 +53,7 @@ document.getElementById("register-form").addEventListener("submit", function (e)
     }
     users.push(user);
     localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("currentUser", JSON.stringify(user));
     alert("Đăng ký thành công! Đang chuyển hướng đến trang đăng nhập...");
     window.location.href = "login.html";
 });

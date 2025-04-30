@@ -37,17 +37,22 @@
                 <div class="card">
                     <h1>Môn học</h1>
                     <div class="controls">
-                        <select>
+                        <select onchange="filterByStatus(this.value)">
                             <option>Lọc theo trạng thái</option>
                             <option>Đang hoạt động</option>
                             <option>Ngừng hoạt động</option>
+                        </select>
+                        <select onchange="sortSubjects(this.value)">
+                            <option>Sắp xếp</option>
+                            <option value="name">Sắp xếp theo tên</option>
+                            <option value="createdAt">Sắp xếp theo thời gian tạo</option>
                         </select>
                         <button class="btn" onclick="openaddModal()">Thêm mới môn học</button>
                     </div>
                 </div>
 
                 <div class="filter">
-                    <input type="text" placeholder="Tìm kiếm môn học theo tên..." />
+                    <input type="text" placeholder="Tìm kiếm môn học theo tên..." oninput="searchSubjects(this)" />
                 </div>
 
                 <table>
@@ -59,61 +64,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Lập trình C</td>
-                            <td><span class="badge active"><span class="dot"></span>Đang hoạt động</span></td>
-                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
-                        </tr>
-                        <tr>
-                            <td>Lập trình Frontend với ReactJS</td>
-                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
-                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
-                        </tr>
-                        <tr>
-                            <td>Lập trình Backend với Spring boot</td>
-                            <td><span class="badge active"><span class="dot"></span>Đang hoạt động</span></td>
-                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
-                        </tr>
-                        <tr>
-                            <td>Lập trình Frontend với VueJS</td>
-                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
-                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
-                        </tr>
-                        <tr>
-                            <td>Cấu trúc dữ liệu và giải thuật</td>
-                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
-                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
-                        </tr>
-                        <tr>
-                            <td>Phân tích và thiết kế hệ thống</td>
-                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
-                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
-                        </tr>
-                        <tr>
-                            <td>Toán cao cấp</td>
-                            <td><span class="badge active"><span class="dot"></span>Đang hoạt động</span></td>
-                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
-                        </tr>
-                        <tr>
-                            <td>Tiếng Anh chuyên ngành</td>
-                            <td><span class="badge inactive"><span class="dot"></span>Ngừng hoạt động</span></td>
-                            <td class="actions"><i class="delete-icon"><img src="../icons/Button.png" alt=""></i><i onclick="openupdate()"><img src="../icons/_Button base.png" alt=""></i></td>
-                        </tr>
+
                     </tbody>
                 </table>
 
                 <div class="pagination">
-                    <button>&lt;</button>
-                    <button>1</button>
-                    <button>2</button>
-                    <button class="active">3</button>
-                    <button>4</button>
-                    <button>5</button>
-                    <button>6</button>
-                    <button>7</button>
-                    <button>...</button>
-                    <button>20</button>
-                    <button>&gt;</button>
+
                 </div>
             </div>
         </div>
@@ -132,36 +88,36 @@
     </div>
     <div id="modaladd" class="modal hidden">
         <div class="modal-content">
-          <button class="close-btn" onclick="closeaddModal()">×</button>
-          <h2>Thêm mới môn học</h2>
-          <p>Tên môn học</p>
-          <input type="text" class="inputsubject" id="namesubject"/>
-          <div id="error" class="error"></div>
-          <p>Trạng thái</p>
+            <button class="close-btn" onclick="closeaddModal()">×</button>
+            <h2>Thêm mới môn học</h2>
+            <p>Tên môn học</p>
+            <input type="text" class="inputsubject" id="namesubject" />
+            <div id="error" class="error"></div>
+            <p>Trạng thái</p>
             <input type="radio" checked><label>Đang hoạt động</label>
-          <input type="radio"><label>Ngừng hoạt động</label>
-          <div class="btn-addmd">
-            <button class="btn cancel" onclick="closeaddModal()">Hủy</button>
-            <button class="btn" onclick="add()">Thêm</button>
-          </div>
+            <input type="radio"><label>Ngừng hoạt động</label>
+            <div class="btn-addmd">
+                <button class="btn cancel" onclick="closeaddModal()">Hủy</button>
+                <button class="btn" onclick="add()">Thêm</button>
+            </div>
         </div>
-      </div>
-      <div id="modalupdate" class="modal hidden">
+    </div>
+    <div id="modalupdate" class="modal hidden">
         <div class="modal-content">
-          <button class="close-btn" onclick="closeupdate()">×</button>
-          <h2>Cập nhật môn học</h2>
-          <p>Tên môn học</p>
-          <input type="text" class="inputsubject" id="namesubject"/>
-          <div id="error" class="error"></div>
-          <p>Trạng thái</p>
+            <button class="close-btn" onclick="closeupdate()">×</button>
+            <h2>Cập nhật môn học</h2>
+            <p>Tên môn học</p>
+            <input type="text" class="inputsubject" id="namesubject" />
+            <div id="error" class="error"></div>
+            <p>Trạng thái</p>
             <input type="radio" checked><label>Đang hoạt động</label>
-          <input type="radio"><label>Ngừng hoạt động</label>
-          <div class="btn-addmd">
-            <button class="btn cancel" onclick="closeupdate()">Hủy</button>
-            <button class="btn" onclick="add()">Lưu</button>
-          </div>
+            <input type="radio"><label>Ngừng hoạt động</label>
+            <div class="btn-addmd">
+                <button class="btn cancel" onclick="closeupdate()">Hủy</button>
+                <button class="btn" onclick="add()">Lưu</button>
+            </div>
         </div>
-      </div>
+    </div>
     <script src="../js/jubjectmanagement.js"></script>
 </body>
 
