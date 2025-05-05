@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Quản lý môn học</title>
+    <title>Quản lý bài học</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="../css/subjectmanagement.css">
+    <link rel="stylesheet" href="../css/lessonmanagement.css">
 </head>
 
 <body>
@@ -15,8 +15,8 @@
             <p>Quản lý tiến độ học tập</p>
             <ul>
                 <li><i class="fas fa-chart-line"></i> Thống kê</li>
-                <li class="active"><i class="fas fa-book-open"></i> Quản lý môn học</li>
-                <li onclick="lessonmanagement()"><i class="fas fa-file-alt"></i> Quản lý bài học</li>
+                <li onclick="subjectmanagement()"><i class="fas fa-book-open"></i> Quản lý môn học</li>
+                <li class="active"><i class="fas fa-file-alt"></i> Quản lý bài học</li>
             </ul>
         </aside>
 
@@ -35,21 +35,19 @@
 
             <div class="content">
                 <div class="card">
-                    <h1>Môn học</h1>
+                    <h1>Bài học</h1>
                     <div class="controls">
                         <select onchange="filterByStatus(this.value)">
-                            <option disabled selected>Lọc theo trạng thái</option>
-                            <option>Tất cả trạng thái</option>
+                            <option>Lọc theo trạng thái</option>
                             <option>Đang hoạt động</option>
                             <option>Ngừng hoạt động</option>
                         </select>
                         <select onchange="sortSubjects(this.value)">
-                            <option disabled selected>Sắp xếp</option>
-                            <option value="default">Mặc định</option>
+                            <option>Sắp xếp</option>
                             <option value="name">Sắp xếp theo tên</option>
                             <option value="createdAt">Sắp xếp theo thời gian tạo</option>
                         </select>
-                        <button class="btn" onclick="openaddModal()">Thêm mới môn học</button>
+                        <button class="btn" onclick="openaddModal()">Thêm mới bài học</button>
                     </div>
                 </div>
 
@@ -91,8 +89,8 @@
     <div id="modaladd" class="modal hidden">
         <div class="modal-content">
             <button class="close-btn" onclick="closeaddModal()">×</button>
-            <h2>Thêm mới môn học</h2>
-            <p>Tên môn học</p>
+            <h2>Thêm mới bài học</h2>
+            <p>Tên bài học</p>
             <input type="text" class="inputsubject" id="namesubject" />
             <div id="error" class="error"></div>
             <p>Trạng thái</p>
@@ -104,30 +102,23 @@
             </div>
         </div>
     </div>
-
-
-
     <div id="modalupdate" class="modal hidden">
         <div class="modal-content">
             <button class="close-btn" onclick="closeupdate()">×</button>
             <h2>Cập nhật môn học</h2>
             <p>Tên môn học</p>
-            <input type="text" class="inputsubject" id="update-namesubject" />
-            <div id="update-error" class="error"></div>
+            <input type="text" class="inputsubject" id="namesubject" />
+            <div id="error" class="error"></div>
             <p>Trạng thái</p>
-            <input type="radio" name="update-status" value="active" checked>
-            <label>Đang hoạt động</label>
-            <input type="radio" name="update-status" value="inactive">
-            <label>Ngừng hoạt động</label>
-
+            <input type="radio" name="status" value="active" checked><label>Đang hoạt động</label>
+            <input type="radio" name="status" value="inactive"><label>Ngừng hoạt động</label>
             <div class="btn-addmd">
                 <button class="btn cancel" onclick="closeupdate()">Hủy</button>
                 <button class="btn" onclick="update()">Lưu</button>
             </div>
         </div>
     </div>
-
-    <script src="../js/jubjectmanagement.js"></script>
+    <script src="../js/lessonmanagement.js"></script>
 </body>
 
 </html>

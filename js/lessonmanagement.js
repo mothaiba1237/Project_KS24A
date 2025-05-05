@@ -1,12 +1,12 @@
-let subjects = JSON.parse(localStorage.getItem("subjects")) || [
-    { id: 1, name: "Lập trình C", status: "active", createdAt: "2024-01-01" },
-    { id: 2, name: "Lập trình Frontend với ReactJS", status: "inactive", createdAt: "2024-01-15" },
-    { id: 3, name: "Lập trình Backend với Spring boot", status: "active", createdAt: "2024-02-01" },
-    { id: 4, name: "Lập trình Frontend với VueJS", status: "inactive", createdAt: "2024-02-20" },
-    { id: 5, name: "Cấu trúc dữ liệu và giải thuật", status: "inactive", createdAt: "2024-03-01" },
-    { id: 6, name: "Phân tích và thiết kế hệ thống", status: "inactive", createdAt: "2024-03-10" },
-    { id: 7, name: "Toán cao cấp", status: "active", createdAt: "2024-04-01" },
-    { id: 8, name: "Tiếng Anh chuyên ngành", status: "inactive", createdAt: "2024-04-10" },
+let lesson = JSON.parse(localStorage.getItem("lesson")) || [
+    { id: 1, name: "Session 01 - Tổng quan về HTML", status: "active", createdAt: "2024-01-01" },
+    { id: 2, name: "Session 02 - Thẻ Inline và Block", status: "inactive", createdAt: "2024-01-15" },
+    { id: 3, name: "Session 03 - Form và Table", status: "active", createdAt: "2024-02-01" },
+    { id: 4, name: "Session 04 - CSS cơ bản", status: "inactive", createdAt: "2024-02-20" },
+    { id: 5, name: "Session 05  - CSS layout", status: "inactive", createdAt: "2024-03-01" },
+    { id: 6, name: "Session 06 - CSS Flex box", status: "inactive", createdAt: "2024-03-10" },
+    { id: 7, name: "Session 12 - Con trỏ trong C", status: "active", createdAt: "2024-04-01" },
+    { id: 8, name: "Session 15 - Đọc và ghi file", status: "inactive", createdAt: "2024-04-10" },
     { id: 9, name: "A", status: "active", createdAt: "2024-03-01" },
     { id: 10, name: "B", status: "active", createdAt: "2024-02-01" },
     { id: 11, name: "C", status: "active", createdAt: "2024-01-01" },
@@ -18,13 +18,13 @@ const cancelBtn = document.getElementById("cancelBtn");
 const deleteIcons = document.querySelectorAll(".delete-icon");
 let subjectToDelete = null;
 let subjectToUpdate = null;
-let currentSubjects = subjects;
+let currentSubjects = lesson;
 
 
 
 //ham xoa mon hoc
 function deleteSubject(id) {
-    subjectToDelete = subjects.find(subject => subject.id === id);
+    subjectToDelete = lesson.find(subject => subject.id === id);
     if (subjectToDelete) {
         const confirmationMessage = `Bạn có chắc chắn muốn xóa môn học "${subjectToDelete.name}" khỏi hệ thống không?`;
         document.querySelector("#deleteModal p").textContent = confirmationMessage;
@@ -36,56 +36,69 @@ cancelBtn.addEventListener("click", () => {
 });
 document.querySelector("#deleteModal .modal-actions .btn.danger").addEventListener("click", () => {
     if (subjectToDelete) {
-        subjects = subjects.filter(subject => subject.id !== subjectToDelete.id);
-        localStorage.setItem("subjects", JSON.stringify(subjects));
-        renderSubjects(subjects);
+        lesson = lesson.filter(subject => subject.id !== subjectToDelete.id);
+        renderSubjects(lesson);
         deletemodal.classList.add("hidden");
     }
 });
 
 
 
-
 //ham cap nhat mon hoc
 function openUpdate(id) {
-    subjectToUpdate = subjects.find(subject => subject.id === id);
+    subjectToUpdate = lesson.find(subject => subject.id === id);
     if (subjectToUpdate) {
-        document.getElementById("update-namesubject").value = subjectToUpdate.name;
-        const statusRadios = document.querySelectorAll('input[name="update-status"]');
-        statusRadios.forEach(radio => {
-            radio.checked = radio.value === subjectToUpdate.status;
-        });
-        document.getElementById("update-error").textContent = "";
+        document.getElementById("namesubject").value = subjectToUpdate.name;
+        const statusRadio = document.querySelector(`input[name="status"][value="${subjectToUpdate.status}"]`);
+        if (statusRadio) {
+            statusRadio.checked = true;
+        }
         document.getElementById("modalupdate").classList.remove("hidden");
     }
 }
 function closeupdate() {
     document.getElementById("modalupdate").classList.add("hidden");
 }
+document.querySelector("#modalupdate .btn").addEventListener("click", () => {
+    if (subjectToUpdate) {
+        const updatedName = document.getElementById("namesubject").value.trim();
+        const updatedStatus = document.querySelector("input[name='status']:checked").value;
+        if (updatedName) {
+            subjectToUpdate.name = updatedName;
+            subjectToUpdate.status = updatedStatus;
+            renderSubjects(lesson);
+            closeupdate();
+        } else {
+            document.getElementById("error").innerText = "Tên môn học không thể để trống!";
+        }
+    }
+});
 function update() {
-    if (!subjectToUpdate) return;
-    const name = document.getElementById("update-namesubject").value.trim();
-    const status = document.querySelector('input[name="update-status"]:checked')?.value;
-    const errorElement = document.getElementById("update-error");
+    const nameInput = document.querySelector('#modalupdate #namesubject');
+    const name = nameInput.value.trim();
+    const errorElement = document.querySelector('#modalupdate #error');
+    const status = document.querySelector('#modalupdate input[name="status"]:checked').value;
+
     if (!name) {
         errorElement.textContent = "Tên môn học không được để trống!";
         return;
     }
-    const nameExists = subjects.some(
-        subject => subject.name.toLowerCase() === name.toLowerCase() && subject.id !== subjectToUpdate.id
-    );
+
+    const nameExists = lesson.some(subject => subject.name.toLowerCase() === name.toLowerCase() && subject.id !== subjectToUpdate.id);
     if (nameExists) {
         errorElement.textContent = "Tên môn học đã tồn tại!";
         return;
     }
+
     subjectToUpdate.name = name;
     subjectToUpdate.status = status;
-    localStorage.setItem("subjects", JSON.stringify(subjects));
-    renderSubjects(subjects);
+
+    localStorage.setItem("lesson", JSON.stringify(lesson)); // Lưu vào localStorage
+
+    renderSubjects(lesson);
     closeupdate();
     alert("Cập nhật môn học thành công!");
 }
-
 
 
 
@@ -114,7 +127,7 @@ function add() {
         return;
     }
 
-    const nameExists = subjects.some(subject => subject.name.toLowerCase() === name.toLowerCase());
+    const nameExists = lesson.some(subject => subject.name.toLowerCase() === name.toLowerCase());
     if (nameExists) {
         errorElement.textContent = "Tên môn học đã tồn tại!";
         return;
@@ -127,10 +140,10 @@ function add() {
         createdAt: new Date().toISOString().split('T')[0]
     };
 
-    subjects.push(newSubject);
-    localStorage.setItem("subjects", JSON.stringify(subjects));
-    currentPage = Math.ceil(subjects.length / subjectsPerPage);
-    renderSubjects(subjects);
+    lesson.push(newSubject);
+    localStorage.setItem("lesson", JSON.stringify(lesson)); // Lưu vào localStorage
+
+    renderSubjects(lesson);
     closeaddModal();
     alert("Thêm môn học thành công!");
 }
@@ -156,7 +169,7 @@ function renderSubjects(data) {
             <td>${subject.name}</td>
             <td>
                 <span class="badge ${subject.status === 'active' ? 'active' : 'inactive'}">
-                    <span class="dot"></span> ${subject.status === 'active' ? 'Đang hoạt động' : 'Ngừng hoạt động'}
+                    <span class="dot"></span> ${subject.status === 'active' ? 'Đã hoàn thành' : 'Chưa hoàn thành'}
                 </span>
             </td>
             <td class="actions">
@@ -218,12 +231,12 @@ function changePage(page) {
 
 
 //ham loc theo trang thai
-renderSubjects(subjects);
+renderSubjects(lesson);
 function filterByStatus(value) {
-    if (value === "Tất cả trạng thái") {
-        currentSubjects = subjects;
+    if (value === "Lọc theo trạng thái") {
+        currentSubjects = lesson;
     } else {
-        currentSubjects = subjects.filter(subject =>
+        currentSubjects = lesson.filter(subject =>
             value === "Đang hoạt động" ? subject.status === "active" : subject.status === "inactive"
         );
     }
@@ -237,7 +250,7 @@ function filterByStatus(value) {
 //ham tim kiem theo ten
 function searchSubjects(inputElement) {
     const keyword = inputElement.value.trim().toLowerCase();
-    currentSubjects = subjects.filter(subject =>
+    currentSubjects = lesson.filter(subject =>
         subject.name.toLowerCase().includes(keyword)
     );
     currentPage = 1;
@@ -260,13 +273,12 @@ function getPaginatedSubjects(data, page) {
 //ham sap xep
 renderSubjects(getPaginatedSubjects(currentPage));
 function sortSubjects(criteria) {
-    if (criteria === "default") {
-        currentSubjects = [...subjects];
-    } else if (criteria === "name") {
-        currentSubjects = [...subjects].sort((a, b) => a.name.localeCompare(b.name));
+    if (criteria === "name") {
+        lesson.sort((a, b) => a.name.localeCompare(b.name));
     } else if (criteria === "createdAt") {
-        currentSubjects = [...subjects].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        lesson.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
     }
+    currentSubjects = lesson;
     currentPage = 1;
     renderSubjects(currentSubjects);
 }
@@ -274,7 +286,6 @@ function sortSubjects(criteria) {
 
 
 
-
-function lessonmanagement() {
-    window.location.href = 'lessonmanagement.html'
+function subjectmanagement(){
+    window.location.href = 'subjectmanagement.html'
 }

@@ -27,6 +27,9 @@ if (currentUser) {
 function subject(){
     window.location.href = 'subjectmanagement.html'
 }
+function lesson(){
+    window.location.href = 'lessonmanagement.html'
+}
 document.getElementById('userProfile').addEventListener('click', function(event) {
     event.preventDefault();
     var userInfo = document.getElementById('userInfo');
@@ -39,5 +42,4 @@ document.getElementById('userProfile').addEventListener('click', function(event)
 
 document.getElementById('logoutBtn').addEventListener('click', function() {
     alert('Bạn đã đăng xuất!');
-    // thêm code xử lý đăng xuất nếu cần
 });
