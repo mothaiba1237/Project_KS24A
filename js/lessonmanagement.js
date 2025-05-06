@@ -1,103 +1,114 @@
-let lesson = JSON.parse(localStorage.getItem("lesson")) || [
-    { id: 1, name: "Session 01 - Tổng quan về HTML", status: "active", createdAt: "2024-01-01" },
-    { id: 2, name: "Session 02 - Thẻ Inline và Block", status: "inactive", createdAt: "2024-01-15" },
-    { id: 3, name: "Session 03 - Form và Table", status: "active", createdAt: "2024-02-01" },
-    { id: 4, name: "Session 04 - CSS cơ bản", status: "inactive", createdAt: "2024-02-20" },
-    { id: 5, name: "Session 05  - CSS layout", status: "inactive", createdAt: "2024-03-01" },
-    { id: 6, name: "Session 06 - CSS Flex box", status: "inactive", createdAt: "2024-03-10" },
-    { id: 7, name: "Session 12 - Con trỏ trong C", status: "active", createdAt: "2024-04-01" },
-    { id: 8, name: "Session 15 - Đọc và ghi file", status: "inactive", createdAt: "2024-04-10" },
-    { id: 9, name: "A", status: "active", createdAt: "2024-03-01" },
-    { id: 10, name: "B", status: "active", createdAt: "2024-02-01" },
-    { id: 11, name: "C", status: "active", createdAt: "2024-01-01" },
-
+let lessons = JSON.parse(localStorage.getItem("lesson")) || [
+    { id: 1, name: "Session 01 - Tổng quan về HTML", type: "HTML", time: 45, status: "Đã hoàn thành" },
+    { id: 2, name: "Session 02 - Thẻ Inline và Block", type: "HTML", time: 60, status: "Chưa hoàn thành" },
+    { id: 3, name: "Session 03 - Form và Table", type: "HTML", time: 40, status: "Đã hoàn thành" },
+    { id: 4, name: "Session 04 - CSS cơ bản", type: "CSS", time: 45, status: "Chưa hoàn thành" },
+    { id: 5, name: "Session 05 - CSS layout", type: "CSS", time: 60, status: "Chưa hoàn thành" },
+    { id: 6, name: "Session 06 - CSS Flex box", type: "CSS", time: 45, status: "Chưa hoàn thành" },
+    { id: 7, name: "Session 12 - Con trỏ trong C", type: "C", time: 45, status: "Đã hoàn thành" },
+    { id: 8, name: "Session 15 - Đọc và ghi file", type: "C", time: 60, status: "Chưa hoàn thành" },
 ];
 
-const deletemodal = document.getElementById("deleteModal");
-const cancelBtn = document.getElementById("cancelBtn");
-const deleteIcons = document.querySelectorAll(".delete-icon");
-let subjectToDelete = null;
-let subjectToUpdate = null;
-let currentSubjects = lesson;
+
+const deleteLessonModal = document.getElementById("deleteModal");
+const cancelDeleteBtn = document.getElementById("cancelBtn");
+let lessonToDelete = null;
+let lessonToUpdate = null;
+let currentLessons = lessons;
 
 
 
-//ham xoa mon hoc
-function deleteSubject(id) {
-    subjectToDelete = lesson.find(subject => subject.id === id);
-    if (subjectToDelete) {
-        const confirmationMessage = `Bạn có chắc chắn muốn xóa môn học "${subjectToDelete.name}" khỏi hệ thống không?`;
+
+
+
+function deleteLesson(id) {
+    lessonToDelete = lessons.find(lesson => lesson.id === id);
+    if (lessonToDelete) {
+        const confirmationMessage = `Bạn có chắc chắn muốn xóa bài học "${lessonToDelete.name}" khỏi hệ thống không?`;
         document.querySelector("#deleteModal p").textContent = confirmationMessage;
-        deletemodal.classList.remove("hidden");
+        deleteLessonModal.classList.remove("hidden");
     }
 }
-cancelBtn.addEventListener("click", () => {
-    deletemodal.classList.add("hidden");
+cancelDeleteBtn.addEventListener("click", () => {
+    deleteLessonModal.classList.add("hidden");
 });
 document.querySelector("#deleteModal .modal-actions .btn.danger").addEventListener("click", () => {
-    if (subjectToDelete) {
-        lesson = lesson.filter(subject => subject.id !== subjectToDelete.id);
-        renderSubjects(lesson);
-        deletemodal.classList.add("hidden");
+    if (lessonToDelete) {
+        lessons = lessons.filter(lesson => lesson.id !== lessonToDelete.id);
+        localStorage.setItem("lesson", JSON.stringify(lessons));
+        renderLessons(lessons);
+        deleteLessonModal.classList.add("hidden");
+        alert("Xóa bài học thành công!");
     }
 });
 
 
 
-//ham cap nhat mon hoc
-function openUpdate(id) {
-    subjectToUpdate = lesson.find(subject => subject.id === id);
-    if (subjectToUpdate) {
-        document.getElementById("namesubject").value = subjectToUpdate.name;
-        const statusRadio = document.querySelector(`input[name="status"][value="${subjectToUpdate.status}"]`);
+
+
+
+
+
+
+function openUpdateLessonModal(id) {
+    lessonToUpdate = lessons.find(lesson => lesson.id === id);
+    if (lessonToUpdate) {
+        document.getElementById("updateName").value = lessonToUpdate.name;
+        document.getElementById("updateType").value = lessonToUpdate.type;
+        document.getElementById("updateTime").value = lessonToUpdate.time;
+        const statusRadio = document.querySelector(`input[name="status"][value="${lessonToUpdate.status}"]`);
         if (statusRadio) {
             statusRadio.checked = true;
         }
         document.getElementById("modalupdate").classList.remove("hidden");
     }
 }
-function closeupdate() {
+function closeUpdateLessonModal() {
     document.getElementById("modalupdate").classList.add("hidden");
 }
-document.querySelector("#modalupdate .btn").addEventListener("click", () => {
-    if (subjectToUpdate) {
-        const updatedName = document.getElementById("namesubject").value.trim();
-        const updatedStatus = document.querySelector("input[name='status']:checked").value;
-        if (updatedName) {
-            subjectToUpdate.name = updatedName;
-            subjectToUpdate.status = updatedStatus;
-            renderSubjects(lesson);
-            closeupdate();
-        } else {
-            document.getElementById("error").innerText = "Tên môn học không thể để trống!";
-        }
-    }
-});
-function update() {
-    const nameInput = document.querySelector('#modalupdate #namesubject');
+function updateLesson() {
+    const nameInput = document.querySelector('#modalupdate #updateName');
     const name = nameInput.value.trim();
-    const errorElement = document.querySelector('#modalupdate #error');
-    const status = document.querySelector('#modalupdate input[name="status"]:checked').value;
-
+    const typeInput = document.querySelector('#modalupdate #updateType');
+    const type = typeInput ? typeInput.value.trim() : '';
+    const timeInput = document.querySelector('#modalupdate #updateTime');
+    const time = parseInt(timeInput.value);
+    const errorElement = document.querySelector('#modalupdate #updateError');
+    const typeErrorElement = document.querySelector('#modalupdate #typeUpdateError');
+    const selectedStatus = document.querySelector('#modalupdate input[name="status"]:checked');
+    errorElement.textContent = "";
+    typeErrorElement.textContent = "";
     if (!name) {
-        errorElement.textContent = "Tên môn học không được để trống!";
+        errorElement.textContent = "Tên bài học không được để trống!";
         return;
     }
-
-    const nameExists = lesson.some(subject => subject.name.toLowerCase() === name.toLowerCase() && subject.id !== subjectToUpdate.id);
+    if (!type) {
+        typeErrorElement.textContent = "Loại môn học không được để trống!";
+        return;
+    }
+    if (isNaN(time) || time <= 0) {
+        errorElement.textContent = "Thời gian học phải là một số lớn hơn 0!";
+        return;
+    }
+    if (!selectedStatus) {
+        alert("Vui lòng chọn trạng thái của bài học!");
+        return;
+    }
+    const nameExists = lessons.some(lesson =>
+        lesson.name.toLowerCase() === name.toLowerCase() && lesson.id !== lessonToUpdate.id
+    );
     if (nameExists) {
-        errorElement.textContent = "Tên môn học đã tồn tại!";
+        errorElement.textContent = "Tên bài học đã tồn tại!";
         return;
     }
-
-    subjectToUpdate.name = name;
-    subjectToUpdate.status = status;
-
-    localStorage.setItem("lesson", JSON.stringify(lesson)); // Lưu vào localStorage
-
-    renderSubjects(lesson);
-    closeupdate();
-    alert("Cập nhật môn học thành công!");
+    lessonToUpdate.name = name;
+    lessonToUpdate.type = type;
+    lessonToUpdate.time = time;
+    lessonToUpdate.status = selectedStatus.value;
+    localStorage.setItem("lesson", JSON.stringify(lessons));
+    renderLessons(lessons);
+    closeUpdateLessonModal();
+    alert("Cập nhật bài học thành công!");
 }
 
 
@@ -106,46 +117,65 @@ function update() {
 
 
 
-// ham them mon hoc
 
-function openaddModal() {
+
+function openAddLessonModal() {
     document.getElementById("modaladd").classList.remove("hidden");
-    document.getElementById("namesubject").value = "";
-    document.getElementById("error").innerText = "";
+    document.getElementById("addName").value = "";
+    document.getElementById("lessonTime").value = "45";
+    document.getElementById("addError").innerText = "";
 }
-function closeaddModal() {
+function closeAddLessonModal() {
     document.getElementById("modaladd").classList.add("hidden");
 }
-function add() {
-    const nameInput = document.querySelector('#modaladd #namesubject');
+// Thêm bài học
+function addLesson() {
+    const nameInput = document.querySelector('#modaladd #addName');
     const name = nameInput.value.trim();
-    const errorElement = document.querySelector('#modaladd #error');
-    const status = document.querySelector('#modaladd input[name="status"]:checked').value;
-
+    const typeInput = document.querySelector('#modaladd #addType');
+    const type = typeInput.value.trim();
+    const timeInput = document.querySelector('#modaladd #lessonTime');
+    const time = parseInt(timeInput.value);
+    const statusInput = document.querySelector('#modaladd input[name="status"]:checked');
+    const errorElement = document.querySelector('#modaladd #addError');
+    const typeError = document.querySelector('#modaladd #typeError');
+    errorElement.textContent = "";
+    typeError.textContent = "";
     if (!name) {
-        errorElement.textContent = "Tên môn học không được để trống!";
+        errorElement.textContent = "Tên bài học không được để trống!";
         return;
     }
-
-    const nameExists = lesson.some(subject => subject.name.toLowerCase() === name.toLowerCase());
+    const nameExists = lessons.some(lesson => lesson.name.toLowerCase() === name.toLowerCase());
     if (nameExists) {
-        errorElement.textContent = "Tên môn học đã tồn tại!";
+        errorElement.textContent = "Tên bài học đã tồn tại!";
         return;
     }
-
-    const newSubject = {
+    if (!type) {
+        typeError.textContent = "Loại môn học không được để trống!";
+        return;
+    }
+    if (isNaN(time) || time <= 0) {
+        errorElement.textContent = "Thời gian học phải là một số lớn hơn 0!";
+        return;
+    }
+    if (!statusInput) {
+        errorElement.textContent = "Vui lòng chọn trạng thái!";
+        return;
+    }
+    const newLesson = {
         id: Date.now(),
         name: name,
-        status: status,
-        createdAt: new Date().toISOString().split('T')[0]
+        type: type,
+        time: time,
+        status: statusInput.value
     };
-
-    lesson.push(newSubject);
-    localStorage.setItem("lesson", JSON.stringify(lesson)); // Lưu vào localStorage
-
-    renderSubjects(lesson);
-    closeaddModal();
-    alert("Thêm môn học thành công!");
+    lessons.push(newLesson);
+    localStorage.setItem("lesson", JSON.stringify(lessons));
+    const totalPages = Math.ceil(lessons.length / lessonsPerPage);
+    currentPage = totalPages;
+    renderLessons(lessons);
+    closeAddLessonModal();
+    alert("Thêm bài học thành công!");
 }
 
 
@@ -155,28 +185,24 @@ function add() {
 
 
 let currentPage = 1;
-const subjectsPerPage = 6;
+const lessonsPerPage = 6;
 
-
-// Hàm hiển thị các môn học
-function renderSubjects(data) {
+function renderLessons(data) {
     const tbody = document.querySelector("table tbody");
     tbody.innerHTML = "";
-    const paginatedData = getPaginatedSubjects(data, currentPage);
-    paginatedData.forEach(subject => {
+    const paginatedData = getPaginatedLessons(data, currentPage);
+    paginatedData.forEach(lesson => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-            <td>${subject.name}</td>
-            <td>
-                <span class="badge ${subject.status === 'active' ? 'active' : 'inactive'}">
-                    <span class="dot"></span> ${subject.status === 'active' ? 'Đã hoàn thành' : 'Chưa hoàn thành'}
-                </span>
-            </td>
+            <td><input type="checkbox" onclick="toggleStatus(${lesson.id}, this)" ${lesson.status === "Đã hoàn thành" ? "checked" : ""}></td>
+            <td>${lesson.name}</td>
+            <td style="text-align: center;">${lesson.time}</td>
+            <td><span class="status-label ${lesson.status === "Đã hoàn thành" ? "done" : "not-done"}">${lesson.status}</span></td>
             <td class="actions">
-                <i class="delete-icon" onclick="deleteSubject(${subject.id})">
+                <i class="delete-icon" onclick="deleteLesson(${lesson.id})">
                     <img src="../icons/Button.png" alt="Xóa">
                 </i>
-                <i onclick="openUpdate(${subject.id})">
+                <i class="edit-icon" onclick="openUpdateLessonModal(${lesson.id})">
                     <img src="../icons/_Button base.png" alt="Sửa">
                 </i>
             </td>
@@ -185,14 +211,23 @@ function renderSubjects(data) {
     });
     renderPagination(data);
 }
+function toggleStatus(id, checkbox) {
+    const lesson = lessons.find(lesson => lesson.id === id);
+    if (lesson) {
+        lesson.status = checkbox.checked ? "Đã hoàn thành" : "Chưa hoàn thành";
+        localStorage.setItem("lesson", JSON.stringify(lessons));
+        renderLessons(lessons);
+    }
+}
 
 
 
 
 
-// Hàm phân trang
+
+
 function renderPagination(data) {
-    const totalPages = Math.ceil(data.length / subjectsPerPage);
+    const totalPages = Math.ceil(data.length / lessonsPerPage);
     const pagination = document.querySelector(".pagination");
     pagination.innerHTML = '';
     const prevButton = document.createElement('button');
@@ -217,11 +252,13 @@ function renderPagination(data) {
 
 
 
+
+
 function changePage(page) {
-    const totalPages = Math.ceil(currentSubjects.length / subjectsPerPage);
+    const totalPages = Math.ceil(currentLessons.length / lessonsPerPage);
     if (page >= 1 && page <= totalPages) {
         currentPage = page;
-        renderSubjects(currentSubjects);
+        renderLessons(currentLessons);
     }
 }
 
@@ -230,62 +267,55 @@ function changePage(page) {
 
 
 
-//ham loc theo trang thai
-renderSubjects(lesson);
-function filterByStatus(value) {
-    if (value === "Lọc theo trạng thái") {
-        currentSubjects = lesson;
-    } else {
-        currentSubjects = lesson.filter(subject =>
-            value === "Đang hoạt động" ? subject.status === "active" : subject.status === "inactive"
-        );
+function sortlesson(value) {
+    if (value === "default") {
+        currentLessons = lessons;
+    } else if (value === "name") {
+        currentLessons = [...lessons].sort((a, b) => a.name.localeCompare(b.name));
+    } else if (value === "createdAt") {
+        currentLessons = [...lessons].sort((a, b) => b.createdAt - a.createdAt);
     }
     currentPage = 1;
-    renderSubjects(currentSubjects);
+    renderLessons(currentLessons);
 }
 
 
 
 
-//ham tim kiem theo ten
+
+
+
 function searchSubjects(inputElement) {
     const keyword = inputElement.value.trim().toLowerCase();
-    currentSubjects = lesson.filter(subject =>
-        subject.name.toLowerCase().includes(keyword)
+    currentLessons = lessons.filter(lesson =>
+        lesson.name.toLowerCase().includes(keyword)
     );
     currentPage = 1;
-    renderSubjects(currentSubjects);
+    renderLessons(currentLessons);
 }
 
 
 
 
 
-function getPaginatedSubjects(data, page) {
-    const startIndex = (page - 1) * subjectsPerPage;
-    const endIndex = startIndex + subjectsPerPage;
+
+function getPaginatedLessons(data, page) {
+    const startIndex = (page - 1) * lessonsPerPage;
+    const endIndex = startIndex + lessonsPerPage;
     return data.slice(startIndex, endIndex);
 }
 
 
 
 
-//ham sap xep
-renderSubjects(getPaginatedSubjects(currentPage));
-function sortSubjects(criteria) {
-    if (criteria === "name") {
-        lesson.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (criteria === "createdAt") {
-        lesson.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    }
-    currentSubjects = lesson;
-    currentPage = 1;
-    renderSubjects(currentSubjects);
-}
-
-
-
 
 function subjectmanagement(){
-    window.location.href = 'subjectmanagement.html'
+    window.location.href = 'subjectmanagement.html';
 }
+
+
+
+
+
+
+renderLessons(lessons);

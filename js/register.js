@@ -47,7 +47,7 @@ document.getElementById("register-form").addEventListener("submit", function (e)
         return;
     }
     const checkpass = users.some(u => u.password === password);
-    if(checkpass) {
+    if (checkpass) {
         alert("Mật khẩu không được trùng")
         return;
     }

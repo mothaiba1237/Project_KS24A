@@ -146,6 +146,7 @@ input[type="text"] {
     width: 250px;
 }
 
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -309,6 +310,9 @@ hr {
     border-radius: 6px;
     cursor: pointer;
 }
+.card  .btn{
+    text-align: end;
+}
 
 .btn.cancel {
     background-color: #ccc;
@@ -363,3 +367,5 @@ hr {
 .btn-addmd{
     text-align: end;
 }
+
+

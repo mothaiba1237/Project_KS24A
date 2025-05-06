@@ -37,17 +37,13 @@
                 <div class="card">
                     <h1>Bài học</h1>
                     <div class="controls">
-                        <select onchange="filterByStatus(this.value)">
-                            <option>Lọc theo trạng thái</option>
-                            <option>Đang hoạt động</option>
-                            <option>Ngừng hoạt động</option>
-                        </select>
-                        <select onchange="sortSubjects(this.value)">
-                            <option>Sắp xếp</option>
+                        <select onchange="sortlesson(this.value)">
+                            <option disabled selected>Sắp xếp</option>
+                            <option value="default">Mặc định</option>
                             <option value="name">Sắp xếp theo tên</option>
                             <option value="createdAt">Sắp xếp theo thời gian tạo</option>
                         </select>
-                        <button class="btn" onclick="openaddModal()">Thêm mới bài học</button>
+                        <button class="btn" onclick="openAddLessonModal()">Thêm mới bài học</button>
                     </div>
                 </div>
 
@@ -58,11 +54,14 @@
                 <table>
                     <thead>
                         <tr>
+                            <th><input type="checkbox" onclick="toggleAll(this)"></th>
                             <th>Tên môn học↓</th>
+                            <th>Thời gian</th>
                             <th class="status">Trạng thái</th>
                             <th>Chức năng</th>
                         </tr>
                     </thead>
+
                     <tbody>
 
                     </tbody>
@@ -88,36 +87,51 @@
     </div>
     <div id="modaladd" class="modal hidden">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeaddModal()">×</button>
+            <button class="close-btn" onclick="closeAddLessonModal()">×</button>
             <h2>Thêm mới bài học</h2>
             <p>Tên bài học</p>
-            <input type="text" class="inputsubject" id="namesubject" />
-            <div id="error" class="error"></div>
+            <input type="text" class="inputsubject" id="addName" />
+            <div class="error" id="addError"></div>
+            <p>Loại môn học</p>
+            <input type="text" class="inputsubject" id="addType" />
+            <div class="error" id="typeError"></div>
+            <p>Thời gian học</p>
+            <input type="number" class="inputsubject" id="lessonTime" min="1" value="45">
+            <hr>
             <p>Trạng thái</p>
-            <input type="radio" name="status" value="active" checked><label>Đang hoạt động</label>
-            <input type="radio" name="status" value="inactive"><label>Ngừng hoạt động</label>
+            <label><input type="radio" name="status" value="Đã hoàn thành"> Đã hoàn thành</label>
+            <label><input type="radio" name="status" value="Chưa hoàn thành"> Chưa hoàn thành</label>
             <div class="btn-addmd">
-                <button class="btn cancel" onclick="closeaddModal()">Hủy</button>
-                <button class="btn" onclick="add()">Thêm</button>
+                <button class="btn cancel" onclick="closeAddLessonModal()">Hủy</button>
+                <button class="btn" onclick="addLesson()">Thêm</button>
             </div>
         </div>
     </div>
+
     <div id="modalupdate" class="modal hidden">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeupdate()">×</button>
-            <h2>Cập nhật môn học</h2>
-            <p>Tên môn học</p>
-            <input type="text" class="inputsubject" id="namesubject" />
-            <div id="error" class="error"></div>
+            <button class="close-btn" onclick="closeUpdateLessonModal()">×</button>
+            <h2>Cập nhật bài học</h2>
+            <p>Tên bài học</p>
+            <input type="text" class="inputsubject" id="updateName" />
+            <div class="error" id="updateError"></div>
+            <p>Loại môn học</p>
+            <input type="text" class="inputsubject" id="updateType" />
+            <div class="error" id="typeUpdateError"></div>
+            <p>Thời gian học</p>
+            <input type="number" class="inputsubject" id="updateTime" min="1" value="45">
             <p>Trạng thái</p>
-            <input type="radio" name="status" value="active" checked><label>Đang hoạt động</label>
-            <input type="radio" name="status" value="inactive"><label>Ngừng hoạt động</label>
+            <label><input type="radio"  name="status" value="Đã hoàn thành"> Đã hoàn thành</label>
+            <label><input type="radio"  name="status" value="Chưa hoàn thành"> Chưa hoàn thành</label>
+            <div class="error" id="statusError"></div>
+            <hr>
             <div class="btn-addmd">
-                <button class="btn cancel" onclick="closeupdate()">Hủy</button>
-                <button class="btn" onclick="update()">Lưu</button>
+                <button class="btn cancel" onclick="closeUpdateLessonModal()">Hủy</button>
+                <button class="btn" onclick="updateLesson()">Lưu</button>
             </div>
         </div>
     </div>
+
     <script src="../js/lessonmanagement.js"></script>
 </body>
 

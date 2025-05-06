@@ -278,3 +278,8 @@ function sortSubjects(criteria) {
 function lessonmanagement() {
     window.location.href = 'lessonmanagement.html'
 }
+
+
+
+
+

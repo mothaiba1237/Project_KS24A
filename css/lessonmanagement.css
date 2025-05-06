@@ -145,21 +145,29 @@ input[type="text"] {
     border-radius: 6px;
     width: 250px;
 }
+input[type="number"]{
+    height: 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    width: 250px;
+}
 
 table {
-    width: 100%;
     border-collapse: collapse;
-    background-color: white;
-}
-th,
-td {
+    width: 100%;
+  }
+  
+  td, th {
     padding: 12px;
-    border-bottom: 1px solid #e5e7eb;
     text-align: left;
-}
+    vertical-align: middle;
+  }
+  
 
 th {
-    color: #6b7280;
+    background-color: #f9f9f9;
+    color: #374151;
+    font-weight: 600;
 }
 
 
@@ -206,9 +214,50 @@ thead {
     background-color: #b91c1c;
 }
 
-.actions i {
+td:first-child,
+th:first-child {
+    width: 40px;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
     cursor: pointer;
-    margin-right: 10px;
+}
+
+.status-label {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-weight: 500;
+}
+
+.status-label.done {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-label.not-done {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.actions i {
+    margin: 0 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.actions .delete-icon {
+    color: #ef4444;
+}
+
+.actions .edit-icon {
+    color: #f59e0b;
+}
+
+tbody tr:hover {
+    background-color: #f3f4f6;
 }
 
 .pagination {
@@ -231,13 +280,31 @@ thead {
     color: white;
 }
 
-td:nth-child(2),
-th:nth-child(2),
 td:nth-child(3),
 th:nth-child(3) {
-    text-align: right;
-    padding-right: 10px;
+    text-align: center;
+    color: #374151;
 }
+
+td:first-child,
+th:first-child {
+    text-align: center;
+    width: 40px;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+
+td:nth-child(2),
+th:nth-child(2) {
+    text-align: left;
+    padding-left: 10px;
+}
+
 
 .modal {
     position: fixed;
@@ -362,4 +429,12 @@ hr {
 }
 .btn-addmd{
     text-align: end;
+}
+
+tbody tr.completed-lesson {
+    background-color: #f0f0f0;
+}
+
+tbody tr.completed-lesson:hover {
+    background-color: #e0e0e0;
 }
