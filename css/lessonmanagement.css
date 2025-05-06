@@ -438,3 +438,80 @@ tbody tr.completed-lesson {
 tbody tr.completed-lesson:hover {
     background-color: #e0e0e0;
 }
+
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-info {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+    width: 150px;
+}
+
+.user-info span {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.user-info button {
+    width: 100%;
+    padding: 6px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.user-info button:hover {
+    background-color: #c0392b;
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    min-width: 140px;
+    justify-content: flex-start;
+}
+
+.badge .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.badge.active {
+    background-color: #d1fae5;
+    color: #047857;
+}
+
+.badge.active .dot {
+    background-color: #047857;
+}
+
+.badge.inactive {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.badge.inactive .dot {
+    background-color: #b91c1c;
+}

@@ -95,3 +95,39 @@ button:hover {
 .login-text a:hover {
     text-decoration: underline;
 }
+@media (max-width: 600px) {
+    body {
+        padding: 20px;
+        height: auto;
+        align-items: flex-start;
+    }
+
+    .register-container {
+        padding: 24px;
+        margin-top: 40px;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .register-container h1 {
+        font-size: 22px;
+    }
+
+    .register-container p,
+    label,
+    .form-options,
+    .login-text {
+        font-size: 13px;
+    }
+
+    .name-group {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

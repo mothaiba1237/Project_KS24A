@@ -29,18 +29,23 @@ function deleteLesson(id) {
         deleteLessonModal.classList.remove("hidden");
     }
 }
-cancelDeleteBtn.addEventListener("click", () => {
-    deleteLessonModal.classList.add("hidden");
-});
+
 document.querySelector("#deleteModal .modal-actions .btn.danger").addEventListener("click", () => {
     if (lessonToDelete) {
         lessons = lessons.filter(lesson => lesson.id !== lessonToDelete.id);
         localStorage.setItem("lesson", JSON.stringify(lessons));
+        const totalPages = Math.ceil(lessons.length / lessonsPerPage);
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
         renderLessons(lessons);
+        renderPagination(lessons);
         deleteLessonModal.classList.add("hidden");
         alert("Xóa bài học thành công!");
     }
 });
+
+
 
 
 
@@ -78,6 +83,7 @@ function updateLesson() {
     const selectedStatus = document.querySelector('#modalupdate input[name="status"]:checked');
     errorElement.textContent = "";
     typeErrorElement.textContent = "";
+    const statusErrorElement = document.querySelector('#modalupdate #statusUpdateError');
     if (!name) {
         errorElement.textContent = "Tên bài học không được để trống!";
         return;
@@ -86,12 +92,15 @@ function updateLesson() {
         typeErrorElement.textContent = "Loại môn học không được để trống!";
         return;
     }
+    const timeErrorElement = document.querySelector('#modalupdate #updateTimeError');
+    timeErrorElement.textContent = "";
     if (isNaN(time) || time <= 0) {
-        errorElement.textContent = "Thời gian học phải là một số lớn hơn 0!";
+        timeErrorElement.textContent = "Thời gian học phải là một số lớn hơn 0!";
         return;
     }
+    statusErrorElement.textContent = "";
     if (!selectedStatus) {
-        alert("Vui lòng chọn trạng thái của bài học!");
+        statusErrorElement.textContent = "Vui lòng chọn trạng thái của bài học!";
         return;
     }
     const nameExists = lessons.some(lesson =>
@@ -141,6 +150,8 @@ function addLesson() {
     const typeError = document.querySelector('#modaladd #typeError');
     errorElement.textContent = "";
     typeError.textContent = "";
+    const statusError = document.querySelector('#modaladd #statusAddError');
+
     if (!name) {
         errorElement.textContent = "Tên bài học không được để trống!";
         return;
@@ -154,12 +165,18 @@ function addLesson() {
         typeError.textContent = "Loại môn học không được để trống!";
         return;
     }
+    const timeError = document.querySelector('#modaladd #timeError');
+    timeError.textContent = "";
+
     if (isNaN(time) || time <= 0) {
-        errorElement.textContent = "Thời gian học phải là một số lớn hơn 0!";
+        timeError.textContent = "Thời gian học phải là một số lớn hơn 0!";
         return;
     }
+
+    statusError.textContent = "";
+
     if (!statusInput) {
-        errorElement.textContent = "Vui lòng chọn trạng thái!";
+        statusError.textContent = "Vui lòng chọn trạng thái!";
         return;
     }
     const newLesson = {
@@ -197,7 +214,11 @@ function renderLessons(data) {
             <td><input type="checkbox" onclick="toggleStatus(${lesson.id}, this)" ${lesson.status === "Đã hoàn thành" ? "checked" : ""}></td>
             <td>${lesson.name}</td>
             <td style="text-align: center;">${lesson.time}</td>
-            <td><span class="status-label ${lesson.status === "Đã hoàn thành" ? "done" : "not-done"}">${lesson.status}</span></td>
+            <td>
+            <span class="badge ${lesson.status === 'Đã hoàn thành' ? 'active' : 'inactive'}">
+            <span class="dot"></span> ${lesson.status === 'Đã hoàn thành' ? 'Đã hoàn thành' : 'Chưa hoàn thành'}
+            </span>
+            </td>
             <td class="actions">
                 <i class="delete-icon" onclick="deleteLesson(${lesson.id})">
                     <img src="../icons/Button.png" alt="Xóa">
@@ -309,7 +330,7 @@ function getPaginatedLessons(data, page) {
 
 
 
-function subjectmanagement(){
+function subjectmanagement() {
     window.location.href = 'subjectmanagement.html';
 }
 
@@ -319,3 +340,36 @@ function subjectmanagement(){
 
 
 renderLessons(lessons);
+
+
+
+
+
+
+const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+if (currentUser) {
+    const userNameElement = document.getElementById('user-name');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userProfile = document.getElementById('userProfile');
+    const userInfo = document.getElementById('userInfo');
+
+    if (userNameElement && logoutBtn && userProfile && userInfo) {
+        userNameElement.textContent = `👋 Chào, ${currentUser.fullName}`;
+
+        userProfile.addEventListener('click', function (e) {
+            e.preventDefault();
+            userInfo.style.display = userInfo.style.display === 'none' ? 'block' : 'none';
+        });
+
+        logoutBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (confirm('Bạn có chắc chắn muốn đăng xuất không?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            }
+        });
+    }
+} else {
+    window.location.href = 'login.html';
+}

@@ -89,3 +89,34 @@ button:hover {
 .signup-text a:hover {
     text-decoration: underline;
 }
+@media (max-width: 600px) {
+    body {
+        padding: 20px;
+        height: auto;
+        align-items: flex-start;
+    }
+
+    .login-container {
+        padding: 24px;
+        margin-top: 60px;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .login-container h1 {
+        font-size: 24px;
+    }
+
+    .login-container p,
+    .login-form label,
+    .form-options,
+    .signup-text {
+        font-size: 13px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
